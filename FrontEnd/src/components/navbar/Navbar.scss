@@ -49,7 +49,12 @@
       span {
         white-space: nowrap;
       }
-
+      .SignIn {
+        &:hover {
+          color: rgb(197, 197, 197);
+          cursor: pointer;
+        }
+      }
       .user {
         display: flex;
         align-items: center;
