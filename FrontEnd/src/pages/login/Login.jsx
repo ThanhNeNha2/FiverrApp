@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./Login.scss";
 
 import newRequest from "../../utils/newRequest";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,13 +18,15 @@ function Login() {
       const res = await newRequest.post("/auth/login", { username, password });
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       navigator("/");
-    } catch (error) {
-      setError(error.response.data);
-      console.log(error);
+    } catch (err) {
+      setError(err.response.data);
+      console.log(err);
+      toast.error(error);
     }
   };
+
   return (
-    <div>
+    <div className="backgroundLogin">
       <div className="login">
         <form onSubmit={handleSubmit}>
           <h1>Sign in </h1>
@@ -39,10 +42,17 @@ function Login() {
           <input
             name="password"
             type="password"
+            placeholder="Please, Password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit">Login</button>
-          {error && error}
+          <p className="loginForgot">Forgot password !</p>
+          <div className="loginRegister">
+            <span> {"Don't have an account ? "} </span>
+            <Link className="link" to={"/register"}>
+              Sign up{" "}
+            </Link>
+          </div>
         </form>
       </div>
     </div>

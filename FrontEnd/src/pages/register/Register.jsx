@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Register.scss";
 import upload from "../../utils/upload";
+
+import Spinner from "react-bootstrap/Spinner";
+import toast from "react-hot-toast";
 export default function Register() {
   const [file, setFile] = useState(null);
   const [user, setUser] = useState({
@@ -13,9 +16,13 @@ export default function Register() {
     country: "",
     isSeller: false,
     desc: "",
+    phone: "",
   });
-  const navigate = useNavigate();
 
+  const [passConfirm, setPassConfirm] = useState("");
+  const [checkLoading, setCheckLoading] = useState(false);
+
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setUser((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -35,19 +42,41 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = await upload(file);
-    try {
-      await newRequest.post("/auth/register", {
-        ...user,
-        img: url,
-      });
-      navigate("/");
-    } catch (err) {
-      console.log(err);
+    if (
+      user.username &&
+      user.email &&
+      file &&
+      user.country &&
+      user.phone &&
+      user.desc &&
+      user.password &&
+      passConfirm
+    ) {
+      if (user.password.length < 6) {
+        toast.error("Password less than 6 characters !");
+      } else {
+        if (user.password === passConfirm) {
+          setCheckLoading(true);
+          const url = await upload(file);
+          try {
+            await newRequest.post("/auth/register", {
+              ...user,
+              img: url,
+            });
+            navigate("/login");
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
+          toast.error("passConfirm Wrong !");
+        }
+      }
+    } else {
+      toast.error("Please enter complete information");
     }
   };
   return (
-    <div>
+    <div className="backgroundRegister">
       <div className="register">
         <form onSubmit={handleSubmit}>
           <div className="left">
@@ -56,18 +85,34 @@ export default function Register() {
             <input
               name="username"
               type="text"
-              placeholder="johndoe"
+              placeholder="Enter username"
               onChange={handleChange}
             />
             <label htmlFor="">Email</label>
             <input
               name="email"
               type="email"
-              placeholder="email"
+              placeholder=" Enter email"
               onChange={handleChange}
             />
             <label htmlFor="">Password</label>
-            <input name="password" type="password" onChange={handleChange} />
+            <input
+              name="password"
+              placeholder="
+Enter password"
+              type="password"
+              onChange={handleChange}
+            />
+
+            <label htmlFor="">Confirm Password</label>
+            <input
+              name="password"
+              placeholder="
+Enter Confirm password"
+              type="password"
+              onChange={(e) => setPassConfirm(e.target.value)}
+            />
+
             <label htmlFor="">Profile Picture</label>
             <input type="file" onChange={handleFile} />
             <label htmlFor="">Country</label>
@@ -77,7 +122,9 @@ export default function Register() {
               placeholder="Usa"
               onChange={handleChange}
             />
-            <button type="submit">Register</button>
+            <button type="submit">
+              {checkLoading ? <Spinner animation="border" /> : "Register"}
+            </button>
           </div>
           <div className="right">
             <h1>I want to become a seller</h1>

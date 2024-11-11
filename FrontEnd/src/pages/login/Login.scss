@@ -1,44 +1,76 @@
-.login {
+.backgroundLogin {
+  background-image: url("https://www.elle.vn/wp-content/uploads/2020/09/07/415468/thien-the-va-nui-rung.jpg");
+  background-repeat: no-repeat; /* Không lặp lại ảnh */
+  background-size: cover; /* Đảm bảo ảnh phủ toàn bộ vùng nền */
+  background-position: center; /* Căn giữa ảnh để tránh bị lệch */
+  box-sizing: border-box;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  form {
-    width: 360px;
-    padding: 100px 0px;
+  .login {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 450px;
+    height: max-content;
+    padding: 0 10px;
 
-    h1 {
-      color: gray;
-      margin-bottom: 20px;
-    }
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(3px);
+    form {
+      width: 360px;
+      padding: 100px 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
 
-    label {
-      color: gray;
-      font-size: 18px;
-    }
+      h1 {
+        color: rgb(82, 82, 82);
+        margin-bottom: 20px;
+      }
 
-    input,
-    textarea {
-      padding: 20px;
-      border: 1px solid rgb(216, 214, 214);
-    }
+      label {
+        color: rgb(82, 82, 82);
 
-    button {
-      border: none;
-      padding: 20px;
-      color: white;
-      font-weight: 500;
-      font-size: 18px;
-      background-color: #1dbf73;
-      cursor: pointer;
-    }
+        font-size: 18px;
+      }
 
-    span {
-      color: red;
-      font-size: 12px;
+      input,
+      textarea {
+        padding: 20px;
+        border: 1px solid rgb(216, 214, 214);
+      }
+
+      button {
+        border: none;
+        padding: 20px;
+        color: white;
+        font-weight: 500;
+        font-size: 18px;
+        background-color: #1dbf73;
+        cursor: pointer;
+      }
+
+      span {
+        color: red;
+        font-size: 12px;
+      }
+      .loginForgot {
+        font-size: 18px;
+        margin: 0 auto;
+        color: rgb(199, 199, 199);
+      }
+      .loginRegister {
+        span {
+          color: rgb(199, 199, 199);
+          font-size: 18px;
+        }
+        font-size: 18px;
+        color: rgb(74, 85, 240);
+        margin: 0 auto;
+      }
     }
   }
 }

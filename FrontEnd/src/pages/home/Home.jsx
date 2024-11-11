@@ -42,8 +42,8 @@ function Home() {
               Protected payments, every time
             </div>
             <p>
-              Always know what you'll pay upfront. Your payment isn't released
-              until you approve the work.
+              Always know what {"you'll"} pay upfront. Your payment {"isn't"}{" "}
+              released until you approve the work.
             </p>
             <div className="title">
               <img src="./img/check.png" alt="" />

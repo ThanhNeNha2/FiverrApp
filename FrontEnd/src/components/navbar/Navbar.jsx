@@ -45,7 +45,10 @@ function Navbar() {
           {currentUser ? (
             <div className="user" onClick={() => setOpen(!open)}>
               <img
-                src="https://images.pexels.com/photos/1115697/pexels-photo-1115697.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                src={
+                  currentUser.img ||
+                  "https://thumb.silhouette-ac.com/t/05/0577c43d049439e0e58566ef0de9a3e0_t.jpeg"
+                }
                 alt=""
               />
               <span>{currentUser?.username}</span>
