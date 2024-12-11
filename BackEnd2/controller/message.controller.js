@@ -4,8 +4,6 @@ import Conversation from "../model/Conversation.model";
 
 export const createMessage = async (req, res, next) => {
   try {
-    console.log(" check req ", req);
-
     const newMessage = new Message({
       conversationId: req.body.conversationId,
       userId: req.userId,

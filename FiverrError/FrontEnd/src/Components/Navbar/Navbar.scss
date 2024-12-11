@@ -1,0 +1,94 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #013914;
+  color: white;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  &.active {
+    background-color: white;
+    color: black;
+    transition: 0.5s all ease;
+  }
+  .container {
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    .logo {
+      font-size: 34px;
+      font-weight: bold;
+      .text {
+      }
+      .dot {
+        color: #1dbf73;
+      }
+    }
+    .links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      font-weight: 400;
+      font-family: "Montserrat", sans-serif;
+      button {
+        color: #1dbf73;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: 1px solid white;
+        cursor: pointer;
+        background-color: transparent;
+        border-color: #1dbf73;
+        &:hover {
+          background-color: #1dbf73;
+          color: white;
+        }
+      }
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        cursor: pointer;
+        img {
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+        }
+        .option {
+          display: flex;
+          flex-direction: column;
+          width: 150px;
+          border-radius: 5px;
+          gap: 7px;
+          padding: 15px;
+          top: 40px;
+          right: 0px;
+          position: absolute;
+          background-color: white;
+          color: rgb(116, 116, 116);
+          border: 1px solid rgb(211, 211, 211);
+        }
+      }
+    }
+  }
+  hr {
+    width: 100%;
+    height: 0;
+    border: 0.2 solid rgb(236, 236, 236);
+    box-sizing: border-box;
+  }
+  .menu {
+    padding: 10px 10px;
+    color: gray;
+    width: 990px;
+    display: flex;
+    font-size: 15px;
+    justify-content: space-between;
+    font-weight: 300;
+    font-family: "Montserrat", sans-serif;
+  }
+}

@@ -26,8 +26,6 @@ const register = async (req, res, next) => {
   }
 };
 let login = async (req, res, next) => {
-  console.log("check ", req.body.username);
-
   try {
     const user = await User.findOne({
       username: req.body.username,
