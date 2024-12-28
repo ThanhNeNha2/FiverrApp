@@ -1,6 +1,10 @@
 import React, { useReducer, useState } from "react";
 import "./Add.scss";
 import { gigReducer, INITIAL_STATE } from "../Reducers/gigReducer";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import newRequest from "../../utils/newRequest";
+import { useNavigate } from "react-router-dom";
+import upload from "../../utils/upload";
 
 const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
@@ -13,8 +17,8 @@ const Add = () => {
 
   const handleChange = (e) => {
     dispatch({
-      type: CHANGE_INPUT,
-      payload: { name: e.target.name, value: e.table.value },
+      type: "CHANGE_INPUT",
+      payload: { name: e.target.name, value: e.target.value },
     });
   };
 
@@ -32,9 +36,13 @@ const Add = () => {
   // UPDATE IMG
 
   const handleUpload = async () => {
+    console.log("check singleFile", singleFile);
+    console.log("check mang img ", files);
+
     setUploading(true);
     try {
       const cover = await upload(singleFile);
+      console.log("thanh cong 1 ");
 
       const images = await Promise.all(
         [...files].map(async (file) => {
@@ -42,6 +50,8 @@ const Add = () => {
           return url;
         })
       );
+      console.log("thanh cong 2");
+
       setUploading(false);
       dispatch({ type: "ADD_IMAGES", payload: { cover, images } });
     } catch (err) {
@@ -49,6 +59,29 @@ const Add = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (gig) => {
+      try {
+        const res = await newRequest.post("gigs", gig);
+        return res;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries("myGigs");
+    },
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("check thong tin nhap vao ", state);
+
+    mutation.mutate(state);
+    // navigate("/mygigs");
+  };
   return (
     <div className="add">
       <div className="container">
@@ -102,7 +135,7 @@ const Add = () => {
               rows="16"
               onChange={handleChange}
             ></textarea>
-            <button>Create</button>
+            <button onClick={handleSubmit}>Create</button>
           </div>
           <div className="details">
             <label htmlFor="">Service Title</label>
